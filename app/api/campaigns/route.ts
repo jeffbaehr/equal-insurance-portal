@@ -1,20 +1,21 @@
 import { NextResponse } from "next/server";
 import { fetchCampaigns, fetchCampaignSummary } from "@/lib/plusvibe";
-import {
-  weeklyVolume,
-  getBestPerformingCampaign,
-  getHighBounceCampaigns,
-} from "@/lib/seed-data";
+import { weeklyVolume } from "@/lib/seed-data";
+import type { Campaign, CampaignSummary } from "@/lib/seed-data";
 
 export async function GET() {
   try {
-    const [campaignList, summary] = await Promise.all([
-      fetchCampaigns(),
-      fetchCampaignSummary(),
-    ]);
+    const { campaigns: campaignList, source } = await fetchCampaigns();
+    const summary = await fetchCampaignSummary(campaignList);
 
-    const bestCampaign = getBestPerformingCampaign();
-    const highBounceCampaigns = getHighBounceCampaigns();
+    const bestCampaign = campaignList.reduce(
+      (best, c) => (c.replyRate > best.replyRate ? c : best),
+      campaignList[0]
+    );
+
+    const highBounceCampaigns = campaignList
+      .filter((c) => c.bounceRate > 8)
+      .sort((a, b) => b.bounceRate - a.bounceRate);
 
     return NextResponse.json({
       campaigns: campaignList,
@@ -35,7 +36,7 @@ export async function GET() {
         })),
         narrative: generateNarrative(summary),
       },
-      source: "seed",
+      source,
       lastUpdated: new Date().toISOString(),
     });
   } catch (error) {
@@ -47,15 +48,7 @@ export async function GET() {
   }
 }
 
-function generateNarrative(summary: {
-  totalSent: number;
-  totalReplies: number;
-  averageReplyRate: number;
-  totalPositiveReplies: number;
-  activeCampaigns: number;
-  totalBounces: number;
-  overallBounceRate: number;
-}): string {
+function generateNarrative(summary: CampaignSummary): string {
   const parts: string[] = [];
 
   parts.push(

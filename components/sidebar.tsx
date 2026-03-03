@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
   Mail,
+  Flame,
   BarChart3,
   Settings,
   LogOut,
@@ -22,6 +23,11 @@ const navItems = [
     label: "Campaigns",
     href: "/dashboard/campaigns",
     icon: Mail,
+  },
+  {
+    label: "Email Accounts",
+    href: "/dashboard/email-accounts",
+    icon: Flame,
   },
   {
     label: "Reports",
