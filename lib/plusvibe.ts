@@ -360,6 +360,107 @@ interface PlusVibeWarmupResponse {
   };
 }
 
+// -- Weekly report stats (read-only) --
+
+interface AggregatedStats {
+  lead_count: number;
+  completed_lead_count: number;
+  lead_contacted_count: number;
+  new_completed_lead_count: number;
+  new_lead_contacted_count: number;
+  sent_count: number;
+  unique_opened_count: number;
+  replied_count: number;
+  bounced_count: number;
+  unsubscribed_count: number;
+  positive_reply_count: number;
+  opportunity_val: number;
+  opportunity_val_per_count: number;
+}
+
+export interface WeeklyReportRow {
+  weekStart: string;
+  weekEnd: string;
+  weekLabel: string;
+  sent: number;
+  replies: number;
+  bounces: number;
+  positiveReplies: number;
+  leadsContacted: number;
+  newLeadsContacted: number;
+  unsubscribes: number;
+  replyRate: number;
+  bounceRate: number;
+}
+
+function getMonday(d: Date): Date {
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  const monday = new Date(d);
+  monday.setDate(diff);
+  monday.setHours(0, 0, 0, 0);
+  return monday;
+}
+
+function formatDateParam(d: Date): string {
+  return d.toISOString().split("T")[0];
+}
+
+function formatWeekLabel(start: Date): string {
+  return start.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
+export async function fetchWeeklyReport(
+  numWeeks: number = 12
+): Promise<WeeklyReportRow[]> {
+  const now = new Date();
+  const currentMonday = getMonday(now);
+
+  const weeks: { start: Date; end: Date }[] = [];
+  for (let i = numWeeks - 1; i >= 0; i--) {
+    const start = new Date(currentMonday);
+    start.setDate(start.getDate() - i * 7);
+    const end = new Date(start);
+    end.setDate(end.getDate() + 6);
+    if (end > now) {
+      end.setTime(now.getTime());
+    }
+    weeks.push({ start, end });
+  }
+
+  const results: WeeklyReportRow[] = [];
+
+  for (const week of weeks) {
+    const raw = await plusvibeGet<AggregatedStats>("/campaign/stats/all", {
+      start_date: formatDateParam(week.start),
+      end_date: formatDateParam(week.end),
+    });
+
+    results.push({
+      weekStart: formatDateParam(week.start),
+      weekEnd: formatDateParam(week.end),
+      weekLabel: formatWeekLabel(week.start),
+      sent: raw?.sent_count ?? 0,
+      replies: raw?.replied_count ?? 0,
+      bounces: raw?.bounced_count ?? 0,
+      positiveReplies: raw?.positive_reply_count ?? 0,
+      leadsContacted: raw?.lead_contacted_count ?? 0,
+      newLeadsContacted: raw?.new_lead_contacted_count ?? 0,
+      unsubscribes: raw?.unsubscribed_count ?? 0,
+      replyRate:
+        raw && raw.sent_count > 0
+          ? (raw.replied_count / raw.sent_count) * 100
+          : 0,
+      bounceRate:
+        raw && raw.sent_count > 0
+          ? (raw.bounced_count / raw.sent_count) * 100
+          : 0,
+    });
+  }
+
+  return results;
+}
+
 export async function fetchWarmupStats(
   startDate: string,
   endDate: string
