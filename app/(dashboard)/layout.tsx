@@ -9,7 +9,7 @@ export default function DashboardLayout({
     <div className="min-h-screen bg-portal-bg">
       <Sidebar />
       <main className="ml-64 min-h-screen">
-        <div className="p-8">{children}</div>
+        <div className="p-8 max-w-[1400px]">{children}</div>
       </main>
     </div>
   );

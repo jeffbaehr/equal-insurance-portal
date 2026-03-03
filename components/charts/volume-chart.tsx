@@ -29,7 +29,7 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (!active || !payload || !payload.length) return null;
 
   return (
-    <div className="bg-portal-surface border border-white/[0.1] rounded-xl px-4 py-3 shadow-xl">
+    <div className="bg-white border border-portal-border rounded-xl px-4 py-3 shadow-lg">
       <p className="text-sm font-medium text-portal-text-primary mb-2">
         Week of {label}
       </p>
@@ -54,7 +54,7 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
 
 export function VolumeChart({ data }: VolumeChartProps) {
   return (
-    <div className="bg-portal-surface rounded-2xl border border-white/[0.05] p-6">
+    <div className="bg-white rounded-2xl border border-portal-border p-6 shadow-sm">
       <h3 className="text-lg font-semibold text-portal-text-primary mb-1">
         Send Volume Over Time
       </h3>
@@ -70,8 +70,8 @@ export function VolumeChart({ data }: VolumeChartProps) {
           >
             <defs>
               <linearGradient id="sentGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#6366F1" stopOpacity={0.15} />
-                <stop offset="95%" stopColor="#6366F1" stopOpacity={0} />
+                <stop offset="5%" stopColor="#0066FF" stopOpacity={0.12} />
+                <stop offset="95%" stopColor="#0066FF" stopOpacity={0} />
               </linearGradient>
               <linearGradient
                 id="repliesGradient"
@@ -80,24 +80,24 @@ export function VolumeChart({ data }: VolumeChartProps) {
                 x2="0"
                 y2="1"
               >
-                <stop offset="5%" stopColor="#10B981" stopOpacity={0.15} />
+                <stop offset="5%" stopColor="#10B981" stopOpacity={0.12} />
                 <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid
               strokeDasharray="3 3"
-              stroke="rgba(255,255,255,0.04)"
+              stroke="#E5E7EB"
               vertical={false}
             />
             <XAxis
               dataKey="week"
-              tick={{ fill: "#9CA3AF", fontSize: 11 }}
-              axisLine={{ stroke: "rgba(255,255,255,0.06)" }}
+              tick={{ fill: "#6B7280", fontSize: 11 }}
+              axisLine={{ stroke: "#E5E7EB" }}
               tickLine={false}
               interval="preserveStartEnd"
             />
             <YAxis
-              tick={{ fill: "#9CA3AF", fontSize: 11 }}
+              tick={{ fill: "#6B7280", fontSize: 11 }}
               axisLine={false}
               tickLine={false}
               tickFormatter={(v: number) =>
@@ -108,14 +108,14 @@ export function VolumeChart({ data }: VolumeChartProps) {
             <Area
               type="monotone"
               dataKey="sent"
-              stroke="#6366F1"
+              stroke="#0066FF"
               strokeWidth={2}
               fill="url(#sentGradient)"
               dot={false}
               activeDot={{
                 r: 4,
-                fill: "#6366F1",
-                stroke: "#0F1117",
+                fill: "#0066FF",
+                stroke: "#FFFFFF",
                 strokeWidth: 2,
               }}
             />
@@ -129,7 +129,7 @@ export function VolumeChart({ data }: VolumeChartProps) {
               activeDot={{
                 r: 4,
                 fill: "#10B981",
-                stroke: "#0F1117",
+                stroke: "#FFFFFF",
                 strokeWidth: 2,
               }}
             />
@@ -137,7 +137,7 @@ export function VolumeChart({ data }: VolumeChartProps) {
         </ResponsiveContainer>
       </div>
 
-      <div className="flex items-center gap-6 mt-4 pt-4 border-t border-white/[0.04]">
+      <div className="flex items-center gap-6 mt-4 pt-4 border-t border-portal-border">
         <div className="flex items-center gap-2">
           <span className="w-3 h-0.5 rounded bg-portal-accent" />
           <span className="text-xs text-portal-text-secondary">
@@ -145,7 +145,7 @@ export function VolumeChart({ data }: VolumeChartProps) {
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-3 h-0.5 rounded bg-portal-success" />
+          <span className="w-3 h-0.5 rounded bg-emerald-500" />
           <span className="text-xs text-portal-text-secondary">Replies</span>
         </div>
       </div>

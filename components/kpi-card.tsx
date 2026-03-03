@@ -12,7 +12,8 @@ interface KpiCardProps {
   subtitle?: string;
   icon: LucideIcon;
   delay?: number;
-  accentColor?: string;
+  iconBg?: string;
+  iconColor?: string;
   trend?: {
     value: string;
     positive: boolean;
@@ -58,7 +59,8 @@ export function KpiCard({
   subtitle,
   icon: Icon,
   delay = 0,
-  accentColor = "from-indigo-500/10",
+  iconBg = "bg-blue-50",
+  iconColor = "text-portal-accent",
   trend,
 }: KpiCardProps) {
   const ref = useRef(null);
@@ -77,24 +79,16 @@ export function KpiCard({
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={cn(
         "relative overflow-hidden rounded-2xl p-6",
-        "bg-portal-surface border border-white/[0.05]",
-        "hover:border-indigo-500/30 transition-all duration-300",
+        "bg-white border border-portal-border",
+        "hover:shadow-lg hover:shadow-black/[0.04] hover:border-portal-accent/20 transition-all duration-300",
         "group cursor-default"
       )}
     >
-      <div
-        className={cn(
-          "absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500",
-          accentColor,
-          "to-transparent"
-        )}
-      />
-
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-portal-accent/10 flex items-center justify-center">
-              <Icon className="w-4 h-4 text-portal-accent" />
+          <div className="flex items-center gap-2.5">
+            <div className={cn("w-9 h-9 rounded-xl flex items-center justify-center", iconBg)}>
+              <Icon className={cn("w-[18px] h-[18px]", iconColor)} />
             </div>
             <span className="text-sm font-medium text-portal-text-secondary">
               {label}
@@ -103,10 +97,10 @@ export function KpiCard({
           {trend && (
             <span
               className={cn(
-                "text-xs font-medium px-2 py-0.5 rounded-full",
+                "text-xs font-semibold px-2.5 py-1 rounded-full",
                 trend.positive
-                  ? "bg-emerald-500/10 text-emerald-400"
-                  : "bg-red-500/10 text-red-400"
+                  ? "bg-emerald-50 text-emerald-600"
+                  : "bg-red-50 text-red-600"
               )}
             >
               {trend.positive ? "+" : ""}

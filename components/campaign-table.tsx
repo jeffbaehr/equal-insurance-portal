@@ -100,7 +100,7 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
   };
 
   return (
-    <div className="bg-portal-surface rounded-2xl border border-white/[0.05] overflow-hidden">
+    <div className="bg-white rounded-2xl border border-portal-border overflow-hidden shadow-sm">
       <div className="flex items-center gap-1 px-6 pt-5 pb-4">
         {tabs.map((tab) => (
           <button
@@ -109,8 +109,8 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
             className={cn(
               "px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200",
               activeTab === tab.value
-                ? "bg-portal-accent/10 text-portal-accent"
-                : "text-portal-text-secondary hover:text-portal-text-primary hover:bg-white/[0.04]"
+                ? "bg-portal-accent text-white"
+                : "text-portal-text-secondary hover:text-portal-text-primary hover:bg-gray-100"
             )}
           >
             {tab.label}
@@ -118,7 +118,7 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
               className={cn(
                 "ml-1.5 text-xs",
                 activeTab === tab.value
-                  ? "text-portal-accent/70"
+                  ? "text-white/70"
                   : "text-portal-text-secondary/50"
               )}
             >
@@ -131,7 +131,7 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-t border-b border-white/[0.06]">
+            <tr className="border-t border-b border-portal-border bg-gray-50/50">
               <th className="text-left px-6 py-3">
                 <button
                   onClick={() => handleSort("name")}
@@ -197,7 +197,7 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
               </th>
             </tr>
           </thead>
-          <tbody className="table-zebra">
+          <tbody>
             <AnimatePresence mode="popLayout">
               {filteredCampaigns.map((campaign, index) => {
                 const statusColors = getStatusColor(campaign.status);
@@ -209,7 +209,7 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2, delay: index * 0.02 }}
-                    className="group hover:bg-white/[0.03] transition-colors"
+                    className="group hover:bg-blue-50/30 transition-colors border-b border-portal-border/50 last:border-b-0"
                   >
                     <td className="px-6 py-3.5">
                       <Link
@@ -273,7 +273,7 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
         </table>
       </div>
 
-      <div className="px-6 py-3 border-t border-white/[0.06] flex items-center justify-between">
+      <div className="px-6 py-3 border-t border-portal-border flex items-center justify-between bg-gray-50/30">
         <p className="text-xs text-portal-text-secondary">
           Showing {filteredCampaigns.length} of {campaigns.length} campaigns
         </p>

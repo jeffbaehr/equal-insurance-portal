@@ -11,7 +11,7 @@ export default function SettingsPage() {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col items-center gap-4"
       >
-        <div className="w-14 h-14 rounded-2xl bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center">
+        <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
           <Settings className="w-7 h-7 text-portal-accent" />
         </div>
         <h1 className="text-xl font-bold text-portal-text-primary">

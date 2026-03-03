@@ -45,41 +45,29 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-portal-sidebar border-r border-white/[0.06] flex flex-col z-50">
-      <div className="p-6 border-b border-white/[0.06]">
+    <aside className="fixed left-0 top-0 bottom-0 w-64 bg-portal-sidebar flex flex-col z-50">
+      <div className="p-6 border-b border-white/[0.08]">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-portal-accent/10 border border-portal-accent/20 flex items-center justify-center shrink-0">
-            <svg
-              className="w-5 h-5 text-portal-accent"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.5}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"
-              />
-            </svg>
+          <div className="w-9 h-9 rounded-xl bg-portal-accent flex items-center justify-center shrink-0">
+            <span className="text-white font-bold text-sm">E</span>
           </div>
           <div>
-            <h2 className="text-sm font-semibold text-portal-text-primary">
-              Praxis Rock
+            <h2 className="text-sm font-semibold text-white">
+              Equal Parts
             </h2>
-            <p className="text-xs text-portal-text-secondary">Advisors</p>
+            <p className="text-xs text-white/50">Insurance Portal</p>
           </div>
         </div>
       </div>
 
-      <div className="px-4 py-3 mx-3 mt-4 rounded-xl bg-white/[0.03] border border-white/[0.04]">
+      <div className="px-4 py-3 mx-3 mt-4 rounded-xl bg-white/[0.05] border border-white/[0.06]">
         <div className="flex items-center gap-2.5">
-          <Building2 className="w-4 h-4 text-portal-text-secondary" />
+          <Building2 className="w-4 h-4 text-white/40" />
           <div>
-            <p className="text-xs font-medium text-portal-text-primary">
+            <p className="text-xs font-medium text-white/90">
               Equal Insurance
             </p>
-            <p className="text-[10px] text-portal-text-secondary">
+            <p className="text-[10px] text-white/40">
               Michael Witte
             </p>
           </div>
@@ -99,28 +87,29 @@ export function Sidebar() {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
                 isActive
-                  ? "bg-portal-accent/10 text-portal-accent border border-portal-accent/10"
-                  : "text-portal-text-secondary hover:text-portal-text-primary hover:bg-white/[0.04] border border-transparent"
+                  ? "bg-portal-accent text-white"
+                  : "text-white/60 hover:text-white hover:bg-white/[0.06]"
               )}
             >
               <item.icon
                 className={cn(
                   "w-[18px] h-[18px]",
-                  isActive
-                    ? "text-portal-accent"
-                    : "text-portal-text-secondary"
+                  isActive ? "text-white" : "text-white/50"
                 )}
               />
               {item.label}
+              {isActive && (
+                <span className="ml-auto w-1.5 h-1.5 rounded-full bg-portal-lime" />
+              )}
             </Link>
           );
         })}
       </nav>
 
-      <div className="p-3 border-t border-white/[0.06]">
+      <div className="p-3 border-t border-white/[0.08]">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-portal-text-secondary hover:text-portal-danger hover:bg-portal-danger/5 transition-all duration-200 w-full border border-transparent"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-white/50 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 w-full"
         >
           <LogOut className="w-[18px] h-[18px]" />
           Sign out

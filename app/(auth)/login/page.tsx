@@ -40,7 +40,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-portal-bg flex items-center justify-center px-4">
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.03] via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-br from-portal-accent/[0.04] via-transparent to-portal-lime/[0.03]" />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -54,23 +54,11 @@ export default function LoginPage() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-portal-accent/10 border border-portal-accent/20 mb-4">
-              <svg
-                className="w-7 h-7 text-portal-accent"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={1.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"
-                />
-              </svg>
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-portal-accent mb-4">
+              <span className="text-white font-bold text-xl tracking-tight">E</span>
             </div>
             <h1 className="text-2xl font-bold text-portal-text-primary tracking-tight">
-              Equal Insurance
+              Equal Parts
             </h1>
             <p className="text-sm text-portal-text-secondary mt-1">
               Campaign Performance Portal
@@ -82,13 +70,13 @@ export default function LoginPage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="bg-portal-surface rounded-2xl border border-white/[0.06] p-8 shadow-2xl shadow-black/20"
+          className="bg-white rounded-2xl border border-portal-border p-8 shadow-xl shadow-black/[0.04]"
         >
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-portal-text-secondary mb-1.5"
+                className="block text-sm font-medium text-portal-text-primary mb-1.5"
               >
                 Email
               </label>
@@ -100,14 +88,14 @@ export default function LoginPage() {
                 required
                 autoComplete="email"
                 placeholder="you@company.com"
-                className="w-full px-4 py-2.5 bg-portal-bg border border-white/[0.08] rounded-xl text-portal-text-primary placeholder-portal-text-secondary/50 text-sm focus:outline-none focus:ring-2 focus:ring-portal-accent/50 focus:border-portal-accent/50 transition-all"
+                className="w-full px-4 py-2.5 bg-portal-bg border border-portal-border rounded-xl text-portal-text-primary placeholder-portal-text-secondary/60 text-sm focus:outline-none focus:ring-2 focus:ring-portal-accent/30 focus:border-portal-accent transition-all"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-portal-text-secondary mb-1.5"
+                className="block text-sm font-medium text-portal-text-primary mb-1.5"
               >
                 Password
               </label>
@@ -119,7 +107,7 @@ export default function LoginPage() {
                 required
                 autoComplete="current-password"
                 placeholder="Enter your password"
-                className="w-full px-4 py-2.5 bg-portal-bg border border-white/[0.08] rounded-xl text-portal-text-primary placeholder-portal-text-secondary/50 text-sm focus:outline-none focus:ring-2 focus:ring-portal-accent/50 focus:border-portal-accent/50 transition-all"
+                className="w-full px-4 py-2.5 bg-portal-bg border border-portal-border rounded-xl text-portal-text-primary placeholder-portal-text-secondary/60 text-sm focus:outline-none focus:ring-2 focus:ring-portal-accent/30 focus:border-portal-accent transition-all"
               />
             </div>
 
@@ -129,7 +117,7 @@ export default function LoginPage() {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="w-4 h-4 rounded border-white/[0.08] bg-portal-bg text-portal-accent focus:ring-portal-accent/50 focus:ring-offset-0"
+                  className="w-4 h-4 rounded border-portal-border bg-portal-bg text-portal-accent focus:ring-portal-accent/30 focus:ring-offset-0"
                 />
                 <span className="text-sm text-portal-text-secondary">
                   Remember me
@@ -141,7 +129,7 @@ export default function LoginPage() {
               <motion.div
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-sm text-portal-danger bg-portal-danger/10 rounded-lg px-4 py-2.5 border border-portal-danger/20"
+                className="text-sm text-portal-danger bg-red-50 rounded-lg px-4 py-2.5 border border-red-100"
               >
                 {error}
               </motion.div>
@@ -150,7 +138,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 px-4 bg-portal-accent hover:bg-portal-accent-hover text-white font-medium rounded-xl text-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-portal-accent/50 focus:ring-offset-2 focus:ring-offset-portal-bg"
+              className="w-full py-2.5 px-4 bg-portal-accent hover:bg-portal-accent-hover text-white font-medium rounded-xl text-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-portal-accent/30 focus:ring-offset-2 focus:ring-offset-white"
             >
               {loading ? (
                 <span className="inline-flex items-center gap-2">
@@ -186,7 +174,7 @@ export default function LoginPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="text-center text-xs text-portal-text-secondary/50 mt-6"
+          className="text-center text-xs text-portal-text-secondary/60 mt-6"
         >
           Powered by Praxis Rock Advisors
         </motion.p>

@@ -62,7 +62,7 @@ export default function CampaignsPage() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="flex items-center gap-8 px-6 py-4 bg-portal-surface rounded-2xl border border-white/[0.05]"
+        className="flex items-center gap-8 px-6 py-4 bg-white rounded-2xl border border-portal-border shadow-sm"
       >
         <div>
           <p className="text-xs text-portal-text-secondary">Total Sent</p>
@@ -70,34 +70,34 @@ export default function CampaignsPage() {
             {totalSent.toLocaleString()}
           </p>
         </div>
-        <div className="w-px h-8 bg-white/[0.06]" />
+        <div className="w-px h-8 bg-portal-border" />
         <div>
           <p className="text-xs text-portal-text-secondary">Total Replies</p>
           <p className="text-xl font-bold text-portal-text-primary tabular-nums">
             {totalReplies.toLocaleString()}
           </p>
         </div>
-        <div className="w-px h-8 bg-white/[0.06]" />
+        <div className="w-px h-8 bg-portal-border" />
         <div>
           <p className="text-xs text-portal-text-secondary">Avg Reply Rate</p>
-          <p className="text-xl font-bold text-emerald-400 tabular-nums">
+          <p className="text-xl font-bold text-emerald-600 tabular-nums">
             {totalSent > 0
               ? ((totalReplies / totalSent) * 100).toFixed(1)
               : "0.0"}
             %
           </p>
         </div>
-        <div className="w-px h-8 bg-white/[0.06]" />
+        <div className="w-px h-8 bg-portal-border" />
         <div>
           <p className="text-xs text-portal-text-secondary">Total Bounces</p>
           <p className="text-xl font-bold text-portal-text-primary tabular-nums">
             {totalBounces.toLocaleString()}
           </p>
         </div>
-        <div className="w-px h-8 bg-white/[0.06]" />
+        <div className="w-px h-8 bg-portal-border" />
         <div>
           <p className="text-xs text-portal-text-secondary">Bounce Rate</p>
-          <p className="text-xl font-bold text-amber-400 tabular-nums">
+          <p className="text-xl font-bold text-amber-600 tabular-nums">
             {totalSent > 0
               ? ((totalBounces / totalSent) * 100).toFixed(1)
               : "0.0"}

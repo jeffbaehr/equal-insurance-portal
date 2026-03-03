@@ -73,7 +73,7 @@ export default function DashboardPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <p className="text-portal-danger text-sm mb-2">
+          <p className="text-red-500 text-sm mb-2">
             Failed to load dashboard data
           </p>
           <p className="text-xs text-portal-text-secondary">{error}</p>
@@ -103,13 +103,13 @@ export default function DashboardPage() {
           </motion.p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/[0.06]">
-            <span className="w-1.5 h-1.5 rounded-full bg-portal-success animate-pulse" />
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-portal-border shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-xs text-portal-text-secondary">
               {data.source === "api" ? "Live data" : "Seed data"}
             </span>
           </div>
-          <span className="text-xs text-portal-text-secondary/50">
+          <span className="text-xs text-portal-text-secondary/60">
             Updated {new Date(data.lastUpdated).toLocaleTimeString()}
           </span>
         </div>
@@ -121,7 +121,8 @@ export default function DashboardPage() {
           value={data.summary.totalSent}
           icon={Send}
           delay={0}
-          accentColor="from-indigo-500/10"
+          iconBg="bg-blue-50"
+          iconColor="text-portal-accent"
         />
         <KpiCard
           label="Total Replies"
@@ -129,7 +130,8 @@ export default function DashboardPage() {
           subtitle={`${formatPercent(data.summary.averageReplyRate)} reply rate`}
           icon={MessageSquare}
           delay={0.1}
-          accentColor="from-emerald-500/10"
+          iconBg="bg-emerald-50"
+          iconColor="text-emerald-600"
         />
         <KpiCard
           label="Positive Responses"
@@ -137,7 +139,8 @@ export default function DashboardPage() {
           subtitle="Meetings booked / interested"
           icon={UserCheck}
           delay={0.2}
-          accentColor="from-amber-500/10"
+          iconBg="bg-amber-50"
+          iconColor="text-amber-600"
         />
         <KpiCard
           label="Active Campaigns"
@@ -145,7 +148,8 @@ export default function DashboardPage() {
           subtitle={`${data.summary.pausedCampaigns} paused, ${data.summary.completedCampaigns} completed`}
           icon={Zap}
           delay={0.3}
-          accentColor="from-violet-500/10"
+          iconBg="bg-violet-50"
+          iconColor="text-violet-600"
         />
       </div>
 

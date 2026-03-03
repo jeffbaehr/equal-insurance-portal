@@ -38,13 +38,13 @@ export function InsightsPanel({ insights }: InsightsPanelProps) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-portal-surface rounded-2xl border border-white/[0.05] p-5 hover:border-emerald-500/20 transition-all"
+          className="bg-white rounded-2xl border border-portal-border p-5 hover:border-emerald-300 hover:shadow-md transition-all shadow-sm"
         >
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-              <Trophy className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="w-7 h-7 rounded-lg bg-emerald-50 flex items-center justify-center">
+              <Trophy className="w-3.5 h-3.5 text-emerald-600" />
             </div>
-            <h3 className="text-sm font-semibold text-emerald-400">
+            <h3 className="text-sm font-semibold text-emerald-700">
               Best Performing
             </h3>
           </div>
@@ -53,7 +53,7 @@ export function InsightsPanel({ insights }: InsightsPanelProps) {
           </p>
           <div className="space-y-1">
             <p className="text-xs text-portal-text-secondary">
-              <span className="text-emerald-400 font-medium">
+              <span className="text-emerald-600 font-semibold">
                 {insights.bestPerforming.replyRate.toFixed(1)}%
               </span>{" "}
               reply rate
@@ -69,13 +69,13 @@ export function InsightsPanel({ insights }: InsightsPanelProps) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-portal-surface rounded-2xl border border-white/[0.05] p-5 hover:border-amber-500/20 transition-all"
+          className="bg-white rounded-2xl border border-portal-border p-5 hover:border-amber-300 hover:shadow-md transition-all shadow-sm"
         >
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-7 h-7 rounded-lg bg-amber-500/10 flex items-center justify-center">
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+            <div className="w-7 h-7 rounded-lg bg-amber-50 flex items-center justify-center">
+              <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
             </div>
-            <h3 className="text-sm font-semibold text-amber-400">
+            <h3 className="text-sm font-semibold text-amber-700">
               Needs Attention
             </h3>
           </div>
@@ -86,7 +86,7 @@ export function InsightsPanel({ insights }: InsightsPanelProps) {
                   <p className="text-xs text-portal-text-primary truncate max-w-[160px]">
                     {campaign.name}
                   </p>
-                  <span className="text-xs font-medium text-portal-danger">
+                  <span className="text-xs font-semibold text-red-500">
                     {campaign.bounceRate.toFixed(1)}% bounce
                   </span>
                 </div>
@@ -103,10 +103,10 @@ export function InsightsPanel({ insights }: InsightsPanelProps) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-portal-surface rounded-2xl border border-white/[0.05] p-5 hover:border-indigo-500/20 transition-all"
+          className="bg-white rounded-2xl border border-portal-border p-5 hover:border-blue-300 hover:shadow-md transition-all shadow-sm"
         >
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-7 h-7 rounded-lg bg-portal-accent/10 flex items-center justify-center">
+            <div className="w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center">
               <Brain className="w-3.5 h-3.5 text-portal-accent" />
             </div>
             <h3 className="text-sm font-semibold text-portal-accent">

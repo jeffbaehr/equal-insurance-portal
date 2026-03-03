@@ -92,20 +92,20 @@ export default function CampaignDetailPage() {
       value: campaign.replies,
       percentage:
         campaign.sent > 0 ? (campaign.replies / campaign.sent) * 100 : 0,
-      color: "bg-portal-success",
+      color: "bg-emerald-500",
     },
     {
       label: "Bounced",
       value: campaign.bounces,
       percentage: campaign.bounceRate,
-      color: "bg-portal-danger",
+      color: "bg-red-500",
     },
     {
       label: "No Reply",
       value: noReplyCount,
       percentage:
         campaign.sent > 0 ? (noReplyCount / campaign.sent) * 100 : 0,
-      color: "bg-portal-text-secondary/30",
+      color: "bg-gray-300",
     },
   ];
 
@@ -189,7 +189,7 @@ export default function CampaignDetailPage() {
         transition={{ delay: 0.1 }}
         className="grid grid-cols-2 md:grid-cols-4 gap-4"
       >
-        <div className="bg-portal-surface rounded-2xl border border-white/[0.05] p-5">
+        <div className="bg-white rounded-2xl border border-portal-border p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
             <Send className="w-4 h-4 text-portal-accent" />
             <span className="text-xs text-portal-text-secondary">
@@ -201,9 +201,9 @@ export default function CampaignDetailPage() {
           </p>
         </div>
 
-        <div className="bg-portal-surface rounded-2xl border border-white/[0.05] p-5">
+        <div className="bg-white rounded-2xl border border-portal-border p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <MessageSquare className="w-4 h-4 text-portal-success" />
+            <MessageSquare className="w-4 h-4 text-emerald-600" />
             <span className="text-xs text-portal-text-secondary">Replies</span>
           </div>
           <p className="text-3xl font-bold text-portal-text-primary tabular-nums">
@@ -219,9 +219,9 @@ export default function CampaignDetailPage() {
           </p>
         </div>
 
-        <div className="bg-portal-surface rounded-2xl border border-white/[0.05] p-5">
+        <div className="bg-white rounded-2xl border border-portal-border p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <AlertTriangle className="w-4 h-4 text-portal-warning" />
+            <AlertTriangle className="w-4 h-4 text-amber-600" />
             <span className="text-xs text-portal-text-secondary">Bounces</span>
           </div>
           <p className="text-3xl font-bold text-portal-text-primary tabular-nums">
@@ -237,9 +237,9 @@ export default function CampaignDetailPage() {
           </p>
         </div>
 
-        <div className="bg-portal-surface rounded-2xl border border-white/[0.05] p-5">
+        <div className="bg-white rounded-2xl border border-portal-border p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <UserCheck className="w-4 h-4 text-emerald-400" />
+            <UserCheck className="w-4 h-4 text-emerald-600" />
             <span className="text-xs text-portal-text-secondary">
               Positive Replies
             </span>
@@ -258,13 +258,13 @@ export default function CampaignDetailPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-portal-surface rounded-2xl border border-white/[0.05] p-6"
+          className="bg-white rounded-2xl border border-portal-border p-6 shadow-sm"
         >
           <h3 className="text-lg font-semibold text-portal-text-primary mb-6">
             Contact Breakdown
           </h3>
 
-          <div className="flex h-3 rounded-full overflow-hidden mb-6 bg-white/[0.03]">
+          <div className="flex h-3 rounded-full overflow-hidden mb-6 bg-gray-100">
             {breakdownData.map((item) => (
               <div
                 key={item.label}
@@ -303,7 +303,7 @@ export default function CampaignDetailPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-portal-surface rounded-2xl border border-white/[0.05] p-6"
+          className="bg-white rounded-2xl border border-portal-border p-6 shadow-sm"
         >
           <h3 className="text-lg font-semibold text-portal-text-primary mb-6">
             Campaign Timeline
@@ -317,8 +317,8 @@ export default function CampaignDetailPage() {
                     className={cn(
                       "w-8 h-8 rounded-full flex items-center justify-center shrink-0",
                       event.active
-                        ? "bg-portal-accent/10 border border-portal-accent/30"
-                        : "bg-white/[0.03] border border-white/[0.06]"
+                        ? "bg-blue-50 border border-portal-accent/30"
+                        : "bg-gray-50 border border-portal-border"
                     )}
                   >
                     <event.icon
@@ -331,7 +331,7 @@ export default function CampaignDetailPage() {
                     />
                   </div>
                   {index < timelineEvents.length - 1 && (
-                    <div className="w-px h-8 bg-white/[0.06] my-1" />
+                    <div className="w-px h-8 bg-portal-border my-1" />
                   )}
                 </div>
                 <div className="pb-6">
@@ -357,7 +357,7 @@ export default function CampaignDetailPage() {
             ))}
           </div>
 
-          <div className="mt-4 pt-4 border-t border-white/[0.06]">
+          <div className="mt-4 pt-4 border-t border-portal-border">
             <div className="flex items-center justify-between">
               <span className="text-sm text-portal-text-secondary">
                 Delivery Rate
@@ -366,7 +366,7 @@ export default function CampaignDetailPage() {
                 {openRate.toFixed(1)}%
               </span>
             </div>
-            <div className="mt-2 h-1.5 rounded-full bg-white/[0.03] overflow-hidden">
+            <div className="mt-2 h-1.5 rounded-full bg-gray-100 overflow-hidden">
               <div
                 className="h-full rounded-full bg-portal-accent transition-all"
                 style={{ width: `${Math.min(openRate, 100)}%` }}

@@ -17,9 +17,9 @@ interface ReplyRateChartProps {
 }
 
 function getBarColor(rate: number): string {
-  if (rate >= 2) return "#10B981";
-  if (rate >= 1) return "#F59E0B";
-  return "#6366F1";
+  if (rate >= 2) return "#059669";
+  if (rate >= 1) return "#D97706";
+  return "#0066FF";
 }
 
 function truncateName(name: string, maxLen: number = 25): string {
@@ -45,7 +45,7 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   const data = payload[0].payload;
 
   return (
-    <div className="bg-portal-surface border border-white/[0.1] rounded-xl px-4 py-3 shadow-xl">
+    <div className="bg-white border border-portal-border rounded-xl px-4 py-3 shadow-lg">
       <p className="text-sm font-medium text-portal-text-primary mb-1">
         {data.name}
       </p>
@@ -72,7 +72,7 @@ export function ReplyRateChart({ campaigns }: ReplyRateChartProps) {
     }));
 
   return (
-    <div className="bg-portal-surface rounded-2xl border border-white/[0.05] p-6">
+    <div className="bg-white rounded-2xl border border-portal-border p-6 shadow-sm">
       <h3 className="text-lg font-semibold text-portal-text-primary mb-1">
         Reply Rate by Campaign
       </h3>
@@ -89,35 +89,35 @@ export function ReplyRateChart({ campaigns }: ReplyRateChartProps) {
           >
             <CartesianGrid
               strokeDasharray="3 3"
-              stroke="rgba(255,255,255,0.04)"
+              stroke="#E5E7EB"
               horizontal={false}
             />
             <XAxis
               type="number"
               domain={[0, "auto"]}
-              tick={{ fill: "#9CA3AF", fontSize: 11 }}
+              tick={{ fill: "#6B7280", fontSize: 11 }}
               tickFormatter={(v: number) => `${v}%`}
-              axisLine={{ stroke: "rgba(255,255,255,0.06)" }}
+              axisLine={{ stroke: "#E5E7EB" }}
               tickLine={false}
             />
             <YAxis
               type="category"
               dataKey="shortName"
               width={180}
-              tick={{ fill: "#9CA3AF", fontSize: 11 }}
+              tick={{ fill: "#6B7280", fontSize: 11 }}
               axisLine={false}
               tickLine={false}
             />
             <Tooltip
               content={<CustomTooltip />}
-              cursor={{ fill: "rgba(255,255,255,0.02)" }}
+              cursor={{ fill: "rgba(0,102,255,0.04)" }}
             />
-            <Bar dataKey="replyRate" radius={[0, 4, 4, 0]} maxBarSize={20}>
+            <Bar dataKey="replyRate" radius={[0, 6, 6, 0]} maxBarSize={20}>
               {sortedData.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={getBarColor(entry.replyRate)}
-                  fillOpacity={0.8}
+                  fillOpacity={0.85}
                 />
               ))}
             </Bar>
