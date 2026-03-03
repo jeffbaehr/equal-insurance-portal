@@ -1,9 +1,4 @@
-import {
-  campaigns as seedCampaigns,
-  type Campaign,
-  type CampaignSummary,
-  getCampaignSummary as getSeedSummary,
-} from "./seed-data";
+import type { Campaign, CampaignSummary } from "./seed-data";
 
 const PLUSVIBE_BASE_URL = "https://api.plusvibe.ai/api/v1";
 
@@ -120,7 +115,7 @@ function normalizeStatus(
 
 export async function fetchCampaigns(): Promise<{
   campaigns: Campaign[];
-  source: "api" | "seed";
+  source: "api";
 }> {
   const raw = await plusvibeGet<PlusVibeCampaign[]>("/campaign/list-all", {
     limit: "100",
@@ -132,8 +127,8 @@ export async function fetchCampaigns(): Promise<{
     return { campaigns: raw.map(mapPlusVibeCampaign), source: "api" };
   }
 
-  console.log("[PlusVibe] Using seed data");
-  return { campaigns: seedCampaigns, source: "seed" };
+  console.log("[PlusVibe] No campaigns available from API");
+  return { campaigns: [], source: "api" };
 }
 
 export async function fetchCampaignSummary(

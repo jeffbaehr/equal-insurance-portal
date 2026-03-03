@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { fetchCampaigns, fetchCampaignSummary } from "@/lib/plusvibe";
-import { weeklyVolume } from "@/lib/seed-data";
 
 export async function GET() {
   try {
@@ -10,7 +9,6 @@ export async function GET() {
     return NextResponse.json({
       campaigns: campaignList,
       summary,
-      weeklyVolume,
       source,
       lastUpdated: new Date().toISOString(),
     });

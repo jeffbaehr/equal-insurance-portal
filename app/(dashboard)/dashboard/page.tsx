@@ -5,15 +5,13 @@ import { motion } from "framer-motion";
 import { KpiCard } from "@/components/kpi-card";
 import { CampaignTable } from "@/components/campaign-table";
 import { ReplyRateChart } from "@/components/charts/reply-rate-chart";
-import { VolumeChart } from "@/components/charts/volume-chart";
-import { Send, MessageSquare, UserCheck, Zap } from "lucide-react";
-import type { Campaign, CampaignSummary, WeeklyVolume } from "@/lib/seed-data";
+import { Send, MessageSquare, UserCheck, Zap, Inbox } from "lucide-react";
+import type { Campaign, CampaignSummary } from "@/lib/seed-data";
 import { formatPercent } from "@/lib/utils";
 
 interface DashboardData {
   campaigns: Campaign[];
   summary: CampaignSummary;
-  weeklyVolume: WeeklyVolume[];
   source: string;
   lastUpdated: string;
 }
@@ -66,6 +64,8 @@ export default function DashboardPage() {
     );
   }
 
+  const hasCampaigns = data.campaigns.length > 0;
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -90,7 +90,7 @@ export default function DashboardPage() {
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-portal-border shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
             <span className="text-xs text-portal-text-secondary">
-              {data.source === "api" ? "Live data" : "Seed data"}
+              PlusVibe API
             </span>
           </div>
           <span className="text-xs text-portal-text-secondary/60">
@@ -99,53 +99,74 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <KpiCard
-          label="Emails Sent"
-          value={data.summary.totalSent}
-          icon={Send}
-          delay={0}
-        />
-        <KpiCard
-          label="Total Replies"
-          value={data.summary.totalReplies}
-          subtitle={`${formatPercent(data.summary.averageReplyRate)} reply rate`}
-          icon={MessageSquare}
-          delay={0.1}
-        />
-        <KpiCard
-          label="Positive Responses"
-          value={data.summary.totalPositiveReplies}
-          subtitle="Meetings booked / interested"
-          icon={UserCheck}
-          delay={0.2}
-        />
-        <KpiCard
-          label="Active Campaigns"
-          value={data.summary.activeCampaigns}
-          subtitle={`${data.summary.pausedCampaigns} paused, ${data.summary.completedCampaigns} completed`}
-          icon={Zap}
-          delay={0.3}
-        />
-      </div>
+      {hasCampaigns ? (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <KpiCard
+              label="Emails Sent"
+              value={data.summary.totalSent}
+              icon={Send}
+              delay={0}
+            />
+            <KpiCard
+              label="Total Replies"
+              value={data.summary.totalReplies}
+              subtitle={`${formatPercent(data.summary.averageReplyRate)} reply rate`}
+              icon={MessageSquare}
+              delay={0.1}
+            />
+            <KpiCard
+              label="Positive Responses"
+              value={data.summary.totalPositiveReplies}
+              subtitle="Meetings booked / interested"
+              icon={UserCheck}
+              delay={0.2}
+            />
+            <KpiCard
+              label="Active Campaigns"
+              value={data.summary.activeCampaigns}
+              subtitle={`${data.summary.pausedCampaigns} paused, ${data.summary.completedCampaigns} completed`}
+              icon={Zap}
+              delay={0.3}
+            />
+          </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
-        <CampaignTable campaigns={data.campaigns} />
-      </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <CampaignTable campaigns={data.campaigns} />
+          </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="grid grid-cols-1 lg:grid-cols-2 gap-4"
-      >
-        <ReplyRateChart campaigns={data.campaigns} />
-        <VolumeChart data={data.weeklyVolume} />
-      </motion.div>
+          {data.campaigns.length > 1 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <ReplyRateChart campaigns={data.campaigns} />
+            </motion.div>
+          )}
+        </>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col items-center justify-center min-h-[40vh] gap-4"
+        >
+          <div className="w-14 h-14 rounded-2xl bg-gray-100 flex items-center justify-center">
+            <Inbox className="w-7 h-7 text-portal-text-secondary" />
+          </div>
+          <h2 className="text-lg font-semibold text-portal-text-primary">
+            No Campaign Data
+          </h2>
+          <p className="text-sm text-portal-text-secondary text-center max-w-md">
+            Campaign data will appear here once the PlusVibe API returns results.
+            Verify your API key and workspace ID are configured correctly.
+          </p>
+        </motion.div>
+      )}
     </div>
   );
 }
