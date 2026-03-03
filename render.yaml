@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: equal-insurance-portal
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PLUSVIBE_API_KEY
+        sync: false
+      - key: PLUSVIBE_WORKSPACE_ID
+        value: 69713f71c8231d9c2fd7b3aa
+      - key: CLIENT_EMAIL
+        sync: false
+      - key: CLIENT_PASSWORD
+        sync: false
