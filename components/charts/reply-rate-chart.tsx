@@ -8,18 +8,11 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Cell,
 } from "recharts";
 import type { Campaign } from "@/lib/seed-data";
 
 interface ReplyRateChartProps {
   campaigns: Campaign[];
-}
-
-function getBarColor(rate: number): string {
-  if (rate >= 2) return "#059669";
-  if (rate >= 1) return "#D97706";
-  return "#0066FF";
 }
 
 function truncateName(name: string, maxLen: number = 25): string {
@@ -77,7 +70,7 @@ export function ReplyRateChart({ campaigns }: ReplyRateChartProps) {
         Reply Rate by Campaign
       </h3>
       <p className="text-sm text-portal-text-secondary mb-6">
-        Sorted by reply rate, highest first
+        Sorted by reply rate
       </p>
 
       <div style={{ height: sortedData.length * 32 + 40, minHeight: 300 }}>
@@ -110,17 +103,15 @@ export function ReplyRateChart({ campaigns }: ReplyRateChartProps) {
             />
             <Tooltip
               content={<CustomTooltip />}
-              cursor={{ fill: "rgba(0,102,255,0.04)" }}
+              cursor={{ fill: "rgba(0,0,0,0.02)" }}
             />
-            <Bar dataKey="replyRate" radius={[0, 6, 6, 0]} maxBarSize={20}>
-              {sortedData.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={getBarColor(entry.replyRate)}
-                  fillOpacity={0.85}
-                />
-              ))}
-            </Bar>
+            <Bar
+              dataKey="replyRate"
+              radius={[0, 6, 6, 0]}
+              maxBarSize={20}
+              fill="#9CA3AF"
+              fillOpacity={0.7}
+            />
           </BarChart>
         </ResponsiveContainer>
       </div>

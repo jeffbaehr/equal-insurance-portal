@@ -59,7 +59,7 @@ export function VolumeChart({ data }: VolumeChartProps) {
         Send Volume Over Time
       </h3>
       <p className="text-sm text-portal-text-secondary mb-6">
-        Weekly email volume with reply tracking
+        Weekly email volume and replies
       </p>
 
       <div style={{ height: 350 }}>
@@ -70,8 +70,8 @@ export function VolumeChart({ data }: VolumeChartProps) {
           >
             <defs>
               <linearGradient id="sentGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#0066FF" stopOpacity={0.12} />
-                <stop offset="95%" stopColor="#0066FF" stopOpacity={0} />
+                <stop offset="5%" stopColor="#6B7280" stopOpacity={0.1} />
+                <stop offset="95%" stopColor="#6B7280" stopOpacity={0} />
               </linearGradient>
               <linearGradient
                 id="repliesGradient"
@@ -80,8 +80,8 @@ export function VolumeChart({ data }: VolumeChartProps) {
                 x2="0"
                 y2="1"
               >
-                <stop offset="5%" stopColor="#10B981" stopOpacity={0.12} />
-                <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
+                <stop offset="5%" stopColor="#9CA3AF" stopOpacity={0.1} />
+                <stop offset="95%" stopColor="#9CA3AF" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid
@@ -108,13 +108,13 @@ export function VolumeChart({ data }: VolumeChartProps) {
             <Area
               type="monotone"
               dataKey="sent"
-              stroke="#0066FF"
+              stroke="#6B7280"
               strokeWidth={2}
               fill="url(#sentGradient)"
               dot={false}
               activeDot={{
                 r: 4,
-                fill: "#0066FF",
+                fill: "#6B7280",
                 stroke: "#FFFFFF",
                 strokeWidth: 2,
               }}
@@ -122,13 +122,13 @@ export function VolumeChart({ data }: VolumeChartProps) {
             <Area
               type="monotone"
               dataKey="replies"
-              stroke="#10B981"
+              stroke="#9CA3AF"
               strokeWidth={2}
               fill="url(#repliesGradient)"
               dot={false}
               activeDot={{
                 r: 4,
-                fill: "#10B981",
+                fill: "#9CA3AF",
                 stroke: "#FFFFFF",
                 strokeWidth: 2,
               }}
@@ -139,13 +139,13 @@ export function VolumeChart({ data }: VolumeChartProps) {
 
       <div className="flex items-center gap-6 mt-4 pt-4 border-t border-portal-border">
         <div className="flex items-center gap-2">
-          <span className="w-3 h-0.5 rounded bg-portal-accent" />
+          <span className="w-3 h-0.5 rounded bg-gray-500" />
           <span className="text-xs text-portal-text-secondary">
             Emails Sent
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-3 h-0.5 rounded bg-emerald-500" />
+          <span className="w-3 h-0.5 rounded bg-gray-400" />
           <span className="text-xs text-portal-text-secondary">Replies</span>
         </div>
       </div>

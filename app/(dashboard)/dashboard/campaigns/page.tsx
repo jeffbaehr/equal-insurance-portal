@@ -29,7 +29,7 @@ export default function CampaignsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="w-8 h-8 border-2 border-portal-accent/30 border-t-portal-accent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin" />
       </div>
     );
   }
@@ -80,7 +80,7 @@ export default function CampaignsPage() {
         <div className="w-px h-8 bg-portal-border" />
         <div>
           <p className="text-xs text-portal-text-secondary">Avg Reply Rate</p>
-          <p className="text-xl font-bold text-emerald-600 tabular-nums">
+          <p className="text-xl font-bold text-portal-text-primary tabular-nums">
             {totalSent > 0
               ? ((totalReplies / totalSent) * 100).toFixed(1)
               : "0.0"}
@@ -97,7 +97,7 @@ export default function CampaignsPage() {
         <div className="w-px h-8 bg-portal-border" />
         <div>
           <p className="text-xs text-portal-text-secondary">Bounce Rate</p>
-          <p className="text-xl font-bold text-amber-600 tabular-nums">
+          <p className="text-xl font-bold text-portal-text-primary tabular-nums">
             {totalSent > 0
               ? ((totalBounces / totalSent) * 100).toFixed(1)
               : "0.0"}

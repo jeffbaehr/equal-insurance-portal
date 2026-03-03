@@ -2,14 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  cn,
-  formatNumber,
-  formatPercent,
-  getReplyRateColor,
-  getBounceRateColor,
-  getStatusColor,
-} from "@/lib/utils";
+import { cn, formatNumber, formatPercent, getStatusColor } from "@/lib/utils";
 import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import Link from "next/link";
 import type { Campaign } from "@/lib/seed-data";
@@ -109,7 +102,7 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
             className={cn(
               "px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200",
               activeTab === tab.value
-                ? "bg-portal-accent text-white"
+                ? "bg-gray-900 text-white"
                 : "text-portal-text-secondary hover:text-portal-text-primary hover:bg-gray-100"
             )}
           >
@@ -118,7 +111,7 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
               className={cn(
                 "ml-1.5 text-xs",
                 activeTab === tab.value
-                  ? "text-white/70"
+                  ? "text-white/60"
                   : "text-portal-text-secondary/50"
               )}
             >
@@ -209,7 +202,7 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.2, delay: index * 0.02 }}
-                    className="group hover:bg-blue-50/30 transition-colors border-b border-portal-border/50 last:border-b-0"
+                    className="group hover:bg-gray-50/60 transition-colors border-b border-portal-border/50 last:border-b-0"
                   >
                     <td className="px-6 py-3.5">
                       <Link
@@ -243,12 +236,7 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
                       {formatNumber(campaign.replies)}
                     </td>
                     <td className="px-4 py-3.5 text-right">
-                      <span
-                        className={cn(
-                          "text-sm font-medium tabular-nums",
-                          getReplyRateColor(campaign.replyRate)
-                        )}
-                      >
+                      <span className="text-sm font-medium tabular-nums text-portal-text-primary">
                         {formatPercent(campaign.replyRate)}
                       </span>
                     </td>
@@ -256,12 +244,7 @@ export function CampaignTable({ campaigns }: CampaignTableProps) {
                       {formatNumber(campaign.bounces)}
                     </td>
                     <td className="px-6 py-3.5 text-right">
-                      <span
-                        className={cn(
-                          "text-sm font-medium tabular-nums",
-                          getBounceRateColor(campaign.bounceRate)
-                        )}
-                      >
+                      <span className="text-sm font-medium tabular-nums text-portal-text-primary">
                         {formatPercent(campaign.bounceRate)}
                       </span>
                     </td>

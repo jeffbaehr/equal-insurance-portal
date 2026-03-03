@@ -6,7 +6,6 @@ import { KpiCard } from "@/components/kpi-card";
 import { CampaignTable } from "@/components/campaign-table";
 import { ReplyRateChart } from "@/components/charts/reply-rate-chart";
 import { VolumeChart } from "@/components/charts/volume-chart";
-import { InsightsPanel } from "@/components/insights-panel";
 import { Send, MessageSquare, UserCheck, Zap } from "lucide-react";
 import type { Campaign, CampaignSummary, WeeklyVolume } from "@/lib/seed-data";
 import { formatPercent } from "@/lib/utils";
@@ -15,21 +14,6 @@ interface DashboardData {
   campaigns: Campaign[];
   summary: CampaignSummary;
   weeklyVolume: WeeklyVolume[];
-  insights: {
-    bestPerforming: {
-      name: string;
-      replyRate: number;
-      replies: number;
-      sent: number;
-    };
-    needsAttention: Array<{
-      name: string;
-      bounceRate: number;
-      bounces: number;
-      status: string;
-    }>;
-    narrative: string;
-  };
   source: string;
   lastUpdated: string;
 }
@@ -60,7 +44,7 @@ export default function DashboardPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-8 h-8 border-2 border-portal-accent/30 border-t-portal-accent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin" />
           <p className="text-sm text-portal-text-secondary">
             Loading dashboard...
           </p>
@@ -73,7 +57,7 @@ export default function DashboardPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <p className="text-red-500 text-sm mb-2">
+          <p className="text-portal-text-primary text-sm mb-2">
             Failed to load dashboard data
           </p>
           <p className="text-xs text-portal-text-secondary">{error}</p>
@@ -104,7 +88,7 @@ export default function DashboardPage() {
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white border border-portal-border shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
             <span className="text-xs text-portal-text-secondary">
               {data.source === "api" ? "Live data" : "Seed data"}
             </span>
@@ -121,8 +105,6 @@ export default function DashboardPage() {
           value={data.summary.totalSent}
           icon={Send}
           delay={0}
-          iconBg="bg-blue-50"
-          iconColor="text-portal-accent"
         />
         <KpiCard
           label="Total Replies"
@@ -130,8 +112,6 @@ export default function DashboardPage() {
           subtitle={`${formatPercent(data.summary.averageReplyRate)} reply rate`}
           icon={MessageSquare}
           delay={0.1}
-          iconBg="bg-emerald-50"
-          iconColor="text-emerald-600"
         />
         <KpiCard
           label="Positive Responses"
@@ -139,8 +119,6 @@ export default function DashboardPage() {
           subtitle="Meetings booked / interested"
           icon={UserCheck}
           delay={0.2}
-          iconBg="bg-amber-50"
-          iconColor="text-amber-600"
         />
         <KpiCard
           label="Active Campaigns"
@@ -148,8 +126,6 @@ export default function DashboardPage() {
           subtitle={`${data.summary.pausedCampaigns} paused, ${data.summary.completedCampaigns} completed`}
           icon={Zap}
           delay={0.3}
-          iconBg="bg-violet-50"
-          iconColor="text-violet-600"
         />
       </div>
 
@@ -169,14 +145,6 @@ export default function DashboardPage() {
       >
         <ReplyRateChart campaigns={data.campaigns} />
         <VolumeChart data={data.weeklyVolume} />
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-      >
-        <InsightsPanel insights={data.insights} />
       </motion.div>
     </div>
   );

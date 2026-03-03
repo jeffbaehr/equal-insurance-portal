@@ -3,19 +3,12 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import {
-  cn,
-  formatNumber,
-  formatPercent,
-  getReplyRateColor,
-  getBounceRateColor,
-  getStatusColor,
-} from "@/lib/utils";
+import { cn, formatNumber, formatPercent, getStatusColor } from "@/lib/utils";
 import {
   ArrowLeft,
   Send,
   MessageSquare,
-  AlertTriangle,
+  MailX,
   UserCheck,
   Calendar,
   Clock,
@@ -52,7 +45,7 @@ export default function CampaignDetailPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="w-8 h-8 border-2 border-portal-accent/30 border-t-portal-accent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin" />
       </div>
     );
   }
@@ -72,7 +65,7 @@ export default function CampaignDetailPage() {
   }
 
   const statusColors = getStatusColor(campaign.status);
-  const openRate =
+  const deliveryRate =
     campaign.sent > 0
       ? ((campaign.sent - campaign.bounces) / campaign.sent) * 100
       : 0;
@@ -85,27 +78,27 @@ export default function CampaignDetailPage() {
       value: deliveredCount,
       percentage:
         campaign.sent > 0 ? (deliveredCount / campaign.sent) * 100 : 0,
-      color: "bg-portal-accent",
+      color: "bg-gray-500",
     },
     {
       label: "Replied",
       value: campaign.replies,
       percentage:
         campaign.sent > 0 ? (campaign.replies / campaign.sent) * 100 : 0,
-      color: "bg-emerald-500",
+      color: "bg-gray-400",
     },
     {
       label: "Bounced",
       value: campaign.bounces,
       percentage: campaign.bounceRate,
-      color: "bg-red-500",
+      color: "bg-gray-300",
     },
     {
       label: "No Reply",
       value: noReplyCount,
       percentage:
         campaign.sent > 0 ? (noReplyCount / campaign.sent) * 100 : 0,
-      color: "bg-gray-300",
+      color: "bg-gray-200",
     },
   ];
 
@@ -114,13 +107,11 @@ export default function CampaignDetailPage() {
       label: "Campaign Created",
       date: campaign.startDate,
       icon: Calendar,
-      active: true,
     },
     {
       label: "First Emails Sent",
       date: campaign.startDate,
       icon: Send,
-      active: true,
     },
     {
       label:
@@ -131,7 +122,6 @@ export default function CampaignDetailPage() {
             : "Currently Active",
       date: campaign.lastActivity,
       icon: Clock,
-      active: campaign.status === "ACTIVE",
     },
   ];
 
@@ -191,7 +181,7 @@ export default function CampaignDetailPage() {
       >
         <div className="bg-white rounded-2xl border border-portal-border p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <Send className="w-4 h-4 text-portal-accent" />
+            <Send className="w-4 h-4 text-portal-text-secondary" />
             <span className="text-xs text-portal-text-secondary">
               Total Sent
             </span>
@@ -203,43 +193,33 @@ export default function CampaignDetailPage() {
 
         <div className="bg-white rounded-2xl border border-portal-border p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <MessageSquare className="w-4 h-4 text-emerald-600" />
+            <MessageSquare className="w-4 h-4 text-portal-text-secondary" />
             <span className="text-xs text-portal-text-secondary">Replies</span>
           </div>
           <p className="text-3xl font-bold text-portal-text-primary tabular-nums">
             {formatNumber(campaign.replies)}
           </p>
-          <p
-            className={cn(
-              "text-sm font-medium mt-1",
-              getReplyRateColor(campaign.replyRate)
-            )}
-          >
+          <p className="text-sm font-medium mt-1 text-portal-text-secondary">
             {formatPercent(campaign.replyRate)} reply rate
           </p>
         </div>
 
         <div className="bg-white rounded-2xl border border-portal-border p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <AlertTriangle className="w-4 h-4 text-amber-600" />
+            <MailX className="w-4 h-4 text-portal-text-secondary" />
             <span className="text-xs text-portal-text-secondary">Bounces</span>
           </div>
           <p className="text-3xl font-bold text-portal-text-primary tabular-nums">
             {formatNumber(campaign.bounces)}
           </p>
-          <p
-            className={cn(
-              "text-sm font-medium mt-1",
-              getBounceRateColor(campaign.bounceRate)
-            )}
-          >
+          <p className="text-sm font-medium mt-1 text-portal-text-secondary">
             {formatPercent(campaign.bounceRate)} bounce rate
           </p>
         </div>
 
         <div className="bg-white rounded-2xl border border-portal-border p-5 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <UserCheck className="w-4 h-4 text-emerald-600" />
+            <UserCheck className="w-4 h-4 text-portal-text-secondary" />
             <span className="text-xs text-portal-text-secondary">
               Positive Replies
             </span>
@@ -313,36 +293,15 @@ export default function CampaignDetailPage() {
             {timelineEvents.map((event, index) => (
               <div key={index} className="flex gap-4">
                 <div className="flex flex-col items-center">
-                  <div
-                    className={cn(
-                      "w-8 h-8 rounded-full flex items-center justify-center shrink-0",
-                      event.active
-                        ? "bg-blue-50 border border-portal-accent/30"
-                        : "bg-gray-50 border border-portal-border"
-                    )}
-                  >
-                    <event.icon
-                      className={cn(
-                        "w-3.5 h-3.5",
-                        event.active
-                          ? "text-portal-accent"
-                          : "text-portal-text-secondary"
-                      )}
-                    />
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 bg-gray-100 border border-portal-border">
+                    <event.icon className="w-3.5 h-3.5 text-portal-text-secondary" />
                   </div>
                   {index < timelineEvents.length - 1 && (
                     <div className="w-px h-8 bg-portal-border my-1" />
                   )}
                 </div>
                 <div className="pb-6">
-                  <p
-                    className={cn(
-                      "text-sm font-medium",
-                      event.active
-                        ? "text-portal-text-primary"
-                        : "text-portal-text-secondary"
-                    )}
-                  >
+                  <p className="text-sm font-medium text-portal-text-primary">
                     {event.label}
                   </p>
                   <p className="text-xs text-portal-text-secondary/70 mt-0.5">
@@ -363,13 +322,13 @@ export default function CampaignDetailPage() {
                 Delivery Rate
               </span>
               <span className="text-sm font-medium text-portal-text-primary">
-                {openRate.toFixed(1)}%
+                {deliveryRate.toFixed(1)}%
               </span>
             </div>
             <div className="mt-2 h-1.5 rounded-full bg-gray-100 overflow-hidden">
               <div
-                className="h-full rounded-full bg-portal-accent transition-all"
-                style={{ width: `${Math.min(openRate, 100)}%` }}
+                className="h-full rounded-full bg-gray-400 transition-all"
+                style={{ width: `${Math.min(deliveryRate, 100)}%` }}
               />
             </div>
           </div>
